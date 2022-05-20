@@ -1,7 +1,9 @@
+import LocationComp from "../components/Location/LocationComp";
+
 const LocationPage = () => {
     return (  
         <div>
-            this is LocationPage
+            <LocationComp />
         </div>
     );
 }

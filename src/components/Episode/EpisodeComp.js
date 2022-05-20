@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useLocation} from "react-router-dom";
-import Character from "./Charatcter";
-import FilterDataComp from "./FilterComp";
-import SearchBar from "./SearchComp";
-import { getAllCharacters} from "../services/getAllCharactersServices";
+import { getAllEpisodes } from "../../services/getAllEpisodesServices";
+import Episode from "./Episode";
+import FilterDataComp from "../FilterComp";
+import SearchBar from "../SearchComp";
 
-const MainComp = () => {
-    const [listedData, setListedData] = useState(null);
+const EpisodeComp = () => {
+    const [listedEpisode, setListedEpisode] = useState(null);
     const [pageInfo, setPageInfo] = useState(null);
     const [error, setError] = useState(false);
 
@@ -18,20 +18,30 @@ const MainComp = () => {
 
     const query = queryString.parse(location.search)
     console.log(location, query)
+    console.log(pageInfo, listedEpisode)
 
+  
+    // useEffect(()=>{
+    //     axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
+    //          .then((res) => { 
+    //             setListedData(res.data.results)
+    //         })
+    //          .catch((err) => console.log(err))
+    // },[]);
     
     useEffect(()=> {
-        getCharacters();
+        getEpisodes();
     },[])
     useEffect(()=> {
-        getCharacters();
+        getEpisodes();
     },[pageNum])
 
-    async function getCharacters() {
+    async function getEpisodes() {
         try {
-            const response = await getAllCharacters(pageNum);
-            setListedData(response.data.results)
+            const response = await getAllEpisodes(pageNum)
+            setListedEpisode(response.data.results)
             setPageInfo(response.data.info)
+            console.log(response.data.info)
 
         } catch (error) {
             console.log(error)
@@ -44,11 +54,11 @@ const MainComp = () => {
     const filterHandler = (e) => {
         if (e.target.value === ""){
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
-             .then((res) => { setListedData(res.data.results)})
+             .then((res) => { setListedEpisode(res.data.results)})
              .catch((err) => console.log(err)) 
         }else {
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
-                 .then((res) => setListedData(res.data.results.filter( d => d.status === e.target.value))
+                 .then((res) => setListedEpisode(res.data.results.filter( d => d.status === e.target.value))
                  .catch((err) => console.log(err))
                  )
         }   
@@ -57,30 +67,30 @@ const MainComp = () => {
         console.log(e.target.value)
         if (e.target.value === ""){
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
-             .then((res) => { setListedData(res.data.results)})
+             .then((res) => { setListedEpisode(res.data.results)})
              .catch((err) => console.log(err)) 
         }else {
-            axios.get(`https://rickandmortyapi.com/api/character/?gender=Male&status=Alive`)
+            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
              .then((res) => { 
                  console.log(res.data.results)
-                 setListedData(res.data.results
+                 setListedEpisode(res.data.results
                     .filter( d => d.name.toLowerCase().includes(e.target.value.toLowerCase())))})
              .catch((err) => console.log(err)) 
         }   
     }
-
     return ( 
         <>
             <SearchBar SearchHandler={SearchHandler}/>
             <FilterDataComp  filterHandler={filterHandler}/>
             <div className="mainComp">
-                {listedData 
-                    ? listedData.map((data) => 
-                    <Link to={`/character/${data.id}`} key={data.id}>
-                        <Character 
+                {listedEpisode 
+                    ? listedEpisode.map((data) => 
+                    <Link to={`/episode/${data.id}`} key={data.id}>
+                        <Episode 
                             id={data.id}
                             name={data.name}
-                            status={data.status}
+                            air_Date={data.air_date}
+                            episode={data.episode}
                         />
                     </Link>
                     )
@@ -90,7 +100,6 @@ const MainComp = () => {
             {pageInfo 
                 ? (<div className="paginateComp">
                     <Link
-                    //to={`/${pageInfo.prev.slice(32)}`  || 'character/?page=3'}>
                     to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
 
                         <button 
@@ -119,4 +128,4 @@ const MainComp = () => {
      );
 }
  
-export default MainComp;
+export default EpisodeComp;

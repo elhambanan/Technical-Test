@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useLocation} from "react-router-dom";
-import Character from "./Charatcter";
-import FilterDataComp from "./FilterComp";
-import SearchBar from "./SearchComp";
-import { getAllCharacters} from "../services/getAllCharactersServices";
+import Location from "./Location";
+import FilterDataComp from "../FilterComp";
+import SearchBar from "../SearchComp";
+import { getAllLocation } from "../../services/getAllLocationServices";
 
-const MainComp = () => {
-    const [listedData, setListedData] = useState(null);
+const LocationComp = () => {
+    const [listedLocation, setListedLocation] = useState(null);
     const [pageInfo, setPageInfo] = useState(null);
     const [error, setError] = useState(false);
 
@@ -17,21 +17,20 @@ const MainComp = () => {
     const pageNum = location.search;
 
     const query = queryString.parse(location.search)
-    console.log(location, query)
-
     
     useEffect(()=> {
-        getCharacters();
+        getLocations();
     },[])
     useEffect(()=> {
-        getCharacters();
+        getLocations();
     },[pageNum])
 
-    async function getCharacters() {
+    async function getLocations() {
         try {
-            const response = await getAllCharacters(pageNum);
-            setListedData(response.data.results)
+            const response = await getAllLocation(pageNum)
+            setListedLocation(response.data.results)
             setPageInfo(response.data.info)
+            console.log(response.data.info)
 
         } catch (error) {
             console.log(error)
@@ -44,11 +43,11 @@ const MainComp = () => {
     const filterHandler = (e) => {
         if (e.target.value === ""){
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
-             .then((res) => { setListedData(res.data.results)})
+             .then((res) => { setListedLocation(res.data.results)})
              .catch((err) => console.log(err)) 
         }else {
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
-                 .then((res) => setListedData(res.data.results.filter( d => d.status === e.target.value))
+                 .then((res) => setListedLocation(res.data.results.filter( d => d.status === e.target.value))
                  .catch((err) => console.log(err))
                  )
         }   
@@ -57,30 +56,30 @@ const MainComp = () => {
         console.log(e.target.value)
         if (e.target.value === ""){
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
-             .then((res) => { setListedData(res.data.results)})
+             .then((res) => { setListedLocation(res.data.results)})
              .catch((err) => console.log(err)) 
         }else {
-            axios.get(`https://rickandmortyapi.com/api/character/?gender=Male&status=Alive`)
+            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
              .then((res) => { 
                  console.log(res.data.results)
-                 setListedData(res.data.results
+                 setListedLocation(res.data.results
                     .filter( d => d.name.toLowerCase().includes(e.target.value.toLowerCase())))})
              .catch((err) => console.log(err)) 
         }   
     }
-
     return ( 
         <>
             <SearchBar SearchHandler={SearchHandler}/>
             <FilterDataComp  filterHandler={filterHandler}/>
             <div className="mainComp">
-                {listedData 
-                    ? listedData.map((data) => 
-                    <Link to={`/character/${data.id}`} key={data.id}>
-                        <Character 
+                {listedLocation 
+                    ? listedLocation.map((data) => 
+                    <Link to={`/location/${data.id}`} key={data.id}>
+                        <Location 
                             id={data.id}
                             name={data.name}
-                            status={data.status}
+                            type={data.type}
+                            dimension={data.dimension}
                         />
                     </Link>
                     )
@@ -90,7 +89,6 @@ const MainComp = () => {
             {pageInfo 
                 ? (<div className="paginateComp">
                     <Link
-                    //to={`/${pageInfo.prev.slice(32)}`  || 'character/?page=3'}>
                     to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
 
                         <button 
@@ -119,4 +117,4 @@ const MainComp = () => {
      );
 }
  
-export default MainComp;
+export default LocationComp;
