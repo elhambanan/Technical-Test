@@ -78,18 +78,20 @@ const EpisodeComp = () => {
              .catch((err) => console.log(err)) 
         }   
     }
+    const advanceSearch = () => {
+        console.log("advanse search")
+    }
     return ( 
         <div className="mainBox">
             <div className="sideBar">
                 <SearchBar SearchHandler={SearchHandler}/>
-                <FilterDataComp  filterHandler={filterHandler}/>
+                {/* <FilterDataComp  filterHandler={filterHandler}/> */}
             </div>
             <div className="mainComp">
                 {listedEpisode 
                     ? listedEpisode.map((data) => 
                     <Link to={`/episode/${data.id}`} key={data.id}>
                         <Episode 
-                            id={data.id}
                             name={data.name}
                             air_Date={data.air_date}
                             episode={data.episode}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useLocation} from "react-router-dom";
+import { Link, useLocation, useNavigate} from "react-router-dom";
 import Character from "./Charatcter";
 import FilterDataComp from "./FilterComp";
 import SearchBar from "./SearchComp";
@@ -58,54 +58,81 @@ const MainComp = () => {
         }   
     }
     const SearchHandler = (e) => {
-        console.log(e.target.value)
+        console.log(e.target.value);
         if (e.target.value === ""){
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
-             .then((res) => { setListedData(res.data.results)})
+             .then((res) => { setListedData(res.data.results)
+
+            })
              .catch((err) => console.log(err)) 
         }else {
-            axios.get(`https://rickandmortyapi.com/api/character/?gender=Male&status=Alive`)
+            axios.get(`https://rickandmortyapi.com/api/character/?name=${location.search}`)
              .then((res) => { 
                  console.log(res.data.results)
+                 e.target.value=""
                  setListedData(res.data.results
-                    .filter( d => d.name.toLowerCase().includes(e.target.value.toLowerCase())))})
-             .catch((err) => console.log(err)) 
+                   .filter( d => d.name.toLowerCase().includes(e.target.value.toLowerCase())))}
+                   )
+                 .catch((err) => console.log(err)) 
         }   
+    }
+    const advanceSearch = () => {
+        console.log("advanse search")
+    }
+    const changeHandler = (e) =>{
+        console.log(e.target.name, e.target.value)
     }
 
     return ( 
         <div className="mainBox">
-            <div className="sideBar">
-                <SearchBar SearchHandler={SearchHandler}/>
-                <FilterDataComp  
-                    filterHandler={filterHandler}
-                    selectedOption = {status}
-                />
+            <div className="sideBar">  
+                <form onSubmit={advanceSearch}>
+                    <input type="text" placeholder="Search for name..."
+                        name="name"
+                        // onChange={changeHandler}
+                        />
+                    <input type="text" placeholder="Search for statuse..."
+                        name="status"
+                        // onChange={changeHandler}
+                        /> 
+                    <input type="text" placeholder="Search for gender..."
+                        name="gender"
+                        // onChange={changeHandler}
+                        />     
+                    {/* <input type="radio" name="gender" onChange={changeHandler}/> */}
+   
+                    <button type="submit">Advance Search</button>       
+                </form>             
+              
             </div>
             <div className="mainComp">
-                {listedData 
-                    ? listedData.map((data) => 
-                    <Link to={`/character/${data.id}`} key={data.id}>
-                        <Character 
-                            image={data.image}
-                            name={data.name}
-                        />
-                    </Link>
-                    )
-                    : <p>Data Loading...</p>
-                }
+                <div className="searchDiv">
+                    <SearchBar SearchHandler={SearchHandler}/>
+                    <FilterDataComp  filterHandler={filterHandler}/>
+                </div>
+                <div className="mainComp">
+                    {listedData 
+                        ? listedData.map((data) => 
+                        <Link to={`/character/${data.id}`} key={data.id}>
+                            <Character 
+                                image={data.image}
+                                name={data.name}
+                            />
+                        </Link>
+                        )
+                        : <p>Data Loading...</p>
+                    }
+                </div>
+               
             </div>
             <div className="pagination">
                 {pageInfo 
                     ? (<div className="paginateComp">
-                        <Link
-                        //to={`/${pageInfo.prev.slice(32)}`  || 'character/?page=3'}>
-                        to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
-
+                        <Link to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
                             <button 
                                 disabled={!pageInfo.prev} 
                                 onClick={() => selectPageHandler()}>
-                            prev
+                                prev
                             </button>
                         </Link>
                         <Link to= {pageNum}>

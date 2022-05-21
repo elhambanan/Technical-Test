@@ -71,7 +71,7 @@ const LocationComp = () => {
         <div className="mainBox">
             <div className="sideBar">
                 <SearchBar SearchHandler={SearchHandler}/>
-                <FilterDataComp  filterHandler={filterHandler}/>
+                {/* <FilterDataComp  filterHandler={filterHandler}/> */}
             </div>
             <div className="mainComp">
                 {listedLocation 

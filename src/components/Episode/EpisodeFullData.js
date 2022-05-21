@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getOneEpisode } from "../../services/getOneEpisodeServices";
 
 const EpisodeFullData = () => {
     const params = useParams();
     const episodeId = params.id;
     const [data, setData] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() =>{
         if(episodeId) {
@@ -35,7 +36,11 @@ const EpisodeFullData = () => {
                     </tr>
                     <tr>
                         <th>url</th>
-                        <td>{data.url}</td>
+                        <td>
+                            <Link to={""}>
+                            {data.url}
+                            </Link>
+                        </td>
                     </tr>
                     <tr>
                         <th>created</th>
@@ -49,7 +54,11 @@ const EpisodeFullData = () => {
                             <br/>
                         </Link>
                         ))}
-                    </tr>         
+                    </tr>      
+                    <tr>
+                        <th>episode</th>
+                        
+                    </tr>     
                </table>
             </div>
         )
