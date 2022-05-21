@@ -1,10 +1,10 @@
-
-const Character = ({name, id, status,onClick}) => {
+const Character = ({image,name, id, status,onClick}) => {
     return ( 
         <div className="character" onClick={onClick}>
-            <p>id: {id}</p>
-            <p>name: {name}</p>
-            <p>status: {status}</p>
+            <div className="avatar">
+             <img src={image}></img>
+            </div>
+            <p>{name}...</p>
         </div>
      );
 }

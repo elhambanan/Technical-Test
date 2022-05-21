@@ -1,10 +1,9 @@
-const Location = ({id,name, type, dimension, onClick}) => {
+const Location = ({name, type, dimension, onClick}) => {
     return (          
-        <div className="character" onClick={onClick}>
-            <p>id: {id}</p>
-            <p>name: {name}</p>
-            <p>type: {type}</p>
-            <p>dimension: {dimension}</p>
+        <div className="location" onClick={onClick}>
+            <p><h5>name :</h5> {name}</p>
+            <p><h5>type :</h5>{type}</p>
+            <p><h5>dimension :</h5>{dimension}</p>
         </div>
     
      );

@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 
 const items = [
+  {name: "HomePage", to:"/"},
   {name: "character", to:"/character"},
+  {name: "episode", to:"/episode"},
   {name: "location", to:"/location"},
-  {name: "episode", to:"/episode"}
 
 ]
 
@@ -11,7 +12,6 @@ const items = [
 
 const Navigation = () => {
     return ( 
-      <header>
         <nav>
           <ul>
             {items.map((item) => {
@@ -29,7 +29,6 @@ const Navigation = () => {
             })}
           </ul>
         </nav> 
-      </header>
      );
 }
  

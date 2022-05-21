@@ -10,6 +10,7 @@ const MainComp = () => {
     const [listedData, setListedData] = useState(null);
     const [pageInfo, setPageInfo] = useState(null);
     const [error, setError] = useState(false);
+    const [status, setStatus] = useState("Alive");
 
 
     const queryString = require('query-string');
@@ -44,7 +45,10 @@ const MainComp = () => {
     const filterHandler = (e) => {
         if (e.target.value === ""){
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
-             .then((res) => { setListedData(res.data.results)})
+             .then((res) => {
+                setListedData(res.data.results);
+                setStatus(e.target.value)              
+            })
              .catch((err) => console.log(err)) 
         }else {
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
@@ -70,52 +74,58 @@ const MainComp = () => {
     }
 
     return ( 
-        <>
-            <SearchBar SearchHandler={SearchHandler}/>
-            <FilterDataComp  filterHandler={filterHandler}/>
+        <div className="mainBox">
+            <div className="sideBar">
+                <SearchBar SearchHandler={SearchHandler}/>
+                <FilterDataComp  
+                    filterHandler={filterHandler}
+                    selectedOption = {status}
+                />
+            </div>
             <div className="mainComp">
                 {listedData 
                     ? listedData.map((data) => 
                     <Link to={`/character/${data.id}`} key={data.id}>
                         <Character 
-                            id={data.id}
+                            image={data.image}
                             name={data.name}
-                            status={data.status}
                         />
                     </Link>
                     )
                     : <p>Data Loading...</p>
                 }
             </div>
-            {pageInfo 
-                ? (<div className="paginateComp">
-                    <Link
-                    //to={`/${pageInfo.prev.slice(32)}`  || 'character/?page=3'}>
-                    to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
+            <div className="pagination">
+                {pageInfo 
+                    ? (<div className="paginateComp">
+                        <Link
+                        //to={`/${pageInfo.prev.slice(32)}`  || 'character/?page=3'}>
+                        to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
 
-                        <button 
-                            disabled={!pageInfo.prev} 
-                            onClick={() => selectPageHandler()}>
-                           prev
-                        </button>
-                    </Link>
-                    <Link to= {pageNum}>
-                        <button onClick={() => selectPageHandler()}>
-                            {query.page}
-                        </button>
-                    </Link>
-                    <Link 
-                    to={pageInfo.next ? `/${pageInfo.next.slice(32)}` : "character/?page=42"}>
-                        <button 
-                            disabled={!pageInfo.next} 
-                            onClick={() => selectPageHandler()}>
-                            next
-                        </button>
-                    </Link>
-                </div>)
-                : (<p>Page Loading</p>)
-            } 
-        </>
+                            <button 
+                                disabled={!pageInfo.prev} 
+                                onClick={() => selectPageHandler()}>
+                            prev
+                            </button>
+                        </Link>
+                        <Link to= {pageNum}>
+                            <button onClick={() => selectPageHandler()}>
+                                {query.page}
+                            </button>
+                        </Link>
+                        <Link 
+                        to={pageInfo.next ? `/${pageInfo.next.slice(32)}` : "character/?page=42"}>
+                            <button 
+                                disabled={!pageInfo.next} 
+                                onClick={() => selectPageHandler()}>
+                                next
+                            </button>
+                        </Link>
+                    </div>)
+                    : (<p>Page Loading</p>)
+                } 
+            </div>
+        </div>
      );
 }
  

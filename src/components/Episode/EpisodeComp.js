@@ -53,11 +53,11 @@ const EpisodeComp = () => {
     }
     const filterHandler = (e) => {
         if (e.target.value === ""){
-            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
+            axios.get(`https://rickandmortyapi.com/api/episode/${location.search}`)
              .then((res) => { setListedEpisode(res.data.results)})
              .catch((err) => console.log(err)) 
         }else {
-            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
+            axios.get(`https://rickandmortyapi.com/api/episode/${location.search}`)
                  .then((res) => setListedEpisode(res.data.results.filter( d => d.status === e.target.value))
                  .catch((err) => console.log(err))
                  )
@@ -66,11 +66,11 @@ const EpisodeComp = () => {
     const SearchHandler = (e) => {
         console.log(e.target.value)
         if (e.target.value === ""){
-            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
+            axios.get(`https://rickandmortyapi.com/api/episode/${location.search}`)
              .then((res) => { setListedEpisode(res.data.results)})
              .catch((err) => console.log(err)) 
         }else {
-            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
+            axios.get(`https://rickandmortyapi.com/api/episode/${location.search}`)
              .then((res) => { 
                  console.log(res.data.results)
                  setListedEpisode(res.data.results
@@ -79,9 +79,11 @@ const EpisodeComp = () => {
         }   
     }
     return ( 
-        <>
-            <SearchBar SearchHandler={SearchHandler}/>
-            <FilterDataComp  filterHandler={filterHandler}/>
+        <div className="mainBox">
+            <div className="sideBar">
+                <SearchBar SearchHandler={SearchHandler}/>
+                <FilterDataComp  filterHandler={filterHandler}/>
+            </div>
             <div className="mainComp">
                 {listedEpisode 
                     ? listedEpisode.map((data) => 
@@ -97,34 +99,36 @@ const EpisodeComp = () => {
                     : <p>Data Loading...</p>
                 }
             </div>
-            {pageInfo 
-                ? (<div className="paginateComp">
-                    <Link
-                    to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
+            <div className="pagination">
+                {pageInfo 
+                    ? (<div className="paginateComp">
+                        <Link
+                        to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
 
-                        <button 
-                            disabled={!pageInfo.prev} 
-                            onClick={() => selectPageHandler()}>
-                           prev
-                        </button>
-                    </Link>
-                    <Link to= {pageNum}>
-                        <button onClick={() => selectPageHandler()}>
-                            {query.page}
-                        </button>
-                    </Link>
-                    <Link 
-                    to={pageInfo.next ? `/${pageInfo.next.slice(32)}` : "character/?page=42"}>
-                        <button 
-                            disabled={!pageInfo.next} 
-                            onClick={() => selectPageHandler()}>
-                            next
-                        </button>
-                    </Link>
-                </div>)
-                : (<p>Page Loading</p>)
-            } 
-        </>
+                            <button 
+                                disabled={!pageInfo.prev} 
+                                onClick={() => selectPageHandler()}>
+                            prev
+                            </button>
+                        </Link>
+                        <Link to= {pageNum}>
+                            <button onClick={() => selectPageHandler()}>
+                                {query.page}
+                            </button>
+                        </Link>
+                        <Link 
+                        to={pageInfo.next ? `/${pageInfo.next.slice(32)}` : "character/?page=42"}>
+                            <button 
+                                disabled={!pageInfo.next} 
+                                onClick={() => selectPageHandler()}>
+                                next
+                            </button>
+                        </Link>
+                    </div>)
+                    : (<p>Page Loading</p>)
+                } 
+            </div>
+        </div>
      );
 }
  

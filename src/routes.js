@@ -9,6 +9,8 @@ import LocationFullData from "./components/Location/LocationFullData";
 
 
 const routes = [
+    {path: "/", element:<HomePage/>},
+
     {path: "/character", element:<MainComp/>},
     {path: "/character/:id", element:<FullDataPage />}, 
     {path: "/character/?page=:id", element:<MainComp />}, 
@@ -20,10 +22,8 @@ const routes = [
     {path: "/location", element:<LocationPage/>},
     {path: "/location/:id", element:<LocationFullData/>},
     {path: "/location/?page=:id", element:<LocationPage />}, 
+
     {path: "*", element:<NotFound/>},
-
-
-    
-
 ]
- export default routes;
+
+export default routes;

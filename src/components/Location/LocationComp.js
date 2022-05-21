@@ -42,11 +42,11 @@ const LocationComp = () => {
     }
     const filterHandler = (e) => {
         if (e.target.value === ""){
-            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
+            axios.get(`https://rickandmortyapi.com/api/location/${location.search}`)
              .then((res) => { setListedLocation(res.data.results)})
              .catch((err) => console.log(err)) 
         }else {
-            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
+            axios.get(`https://rickandmortyapi.com/api/location/${location.search}`)
                  .then((res) => setListedLocation(res.data.results.filter( d => d.status === e.target.value))
                  .catch((err) => console.log(err))
                  )
@@ -55,11 +55,11 @@ const LocationComp = () => {
     const SearchHandler = (e) => {
         console.log(e.target.value)
         if (e.target.value === ""){
-            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
+            axios.get(`https://rickandmortyapi.com/api/location/${location.search}`)
              .then((res) => { setListedLocation(res.data.results)})
              .catch((err) => console.log(err)) 
         }else {
-            axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
+            axios.get(`https://rickandmortyapi.com/api/location/${location.search}`)
              .then((res) => { 
                  console.log(res.data.results)
                  setListedLocation(res.data.results
@@ -68,15 +68,16 @@ const LocationComp = () => {
         }   
     }
     return ( 
-        <>
-            <SearchBar SearchHandler={SearchHandler}/>
-            <FilterDataComp  filterHandler={filterHandler}/>
+        <div className="mainBox">
+            <div className="sideBar">
+                <SearchBar SearchHandler={SearchHandler}/>
+                <FilterDataComp  filterHandler={filterHandler}/>
+            </div>
             <div className="mainComp">
                 {listedLocation 
                     ? listedLocation.map((data) => 
                     <Link to={`/location/${data.id}`} key={data.id}>
                         <Location 
-                            id={data.id}
                             name={data.name}
                             type={data.type}
                             dimension={data.dimension}
@@ -86,34 +87,36 @@ const LocationComp = () => {
                     : <p>Data Loading...</p>
                 }
             </div>
-            {pageInfo 
-                ? (<div className="paginateComp">
-                    <Link
-                    to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
+            <div className="pagination">
+                {pageInfo 
+                    ? (<div className="paginateComp">
+                        <Link
+                        to={pageInfo.prev ? `/${pageInfo.prev.slice(32)}` : "character/?page=1"}>
 
-                        <button 
-                            disabled={!pageInfo.prev} 
-                            onClick={() => selectPageHandler()}>
-                           prev
-                        </button>
-                    </Link>
-                    <Link to= {pageNum}>
-                        <button onClick={() => selectPageHandler()}>
-                            {query.page}
-                        </button>
-                    </Link>
-                    <Link 
-                    to={pageInfo.next ? `/${pageInfo.next.slice(32)}` : "character/?page=42"}>
-                        <button 
-                            disabled={!pageInfo.next} 
-                            onClick={() => selectPageHandler()}>
-                            next
-                        </button>
-                    </Link>
-                </div>)
-                : (<p>Page Loading</p>)
-            } 
-        </>
+                            <button 
+                                disabled={!pageInfo.prev} 
+                                onClick={() => selectPageHandler()}>
+                            prev
+                            </button>
+                        </Link>
+                        <Link to= {pageNum}>
+                            <button onClick={() => selectPageHandler()}>
+                                {query.page}
+                            </button>
+                        </Link>
+                        <Link 
+                        to={pageInfo.next ? `/${pageInfo.next.slice(32)}` : "character/?page=42"}>
+                            <button 
+                                disabled={!pageInfo.next} 
+                                onClick={() => selectPageHandler()}>
+                                next
+                            </button>
+                        </Link>
+                    </div>)
+                    : (<p>Page Loading</p>)
+                } 
+            </div>
+        </div>
      );
 }
  
