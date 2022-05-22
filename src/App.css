@@ -23,16 +23,16 @@ ul {
   justify-content: flex-start;
   align-items: center;
   height: 60px;
-  width: 90%;
+  width: 100%;
   border-radius: 5px;
-  padding: 0.5rem;
+  padding: 0.5rem 4rem;
   font-size: 18px;
 }
 ul li {
-  margin-right: 20px;
+  margin-right: 40px;
 }
 header {
-  background-color: #927a7a;
+  background-color: #ddd6fe;
   width: 100%;
   padding: 0.5rem;
 }
@@ -60,18 +60,17 @@ footer {
   grid-template-areas: 
                        "nav  main"
                        "nav  foot";
-  grid-template-rows: 1fr 50px;
-  grid-template-columns: 150px 1fr;
+  grid-template-rows: 1fr 70px;
+  grid-template-columns: 200px 1fr;
 }
 .header {
   width: 100%;
   grid-area: head;
 }
 
-
 .sideBar {
   grid-area: nav;
-  background-color: #ffa08c;
+  background-color: #ede9fe;
 }
 
 .mainComp{
@@ -81,7 +80,8 @@ footer {
 
 .pagination {
   grid-area: foot;
-  background-color: #8cffa0;
+  /* background-color: c4b5fd#; */
+  
 }
 .mainComp {
   grid-area: main;
@@ -89,7 +89,7 @@ footer {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding-top: 30px;
+  /* padding-top: 30px; */
   /* background-color: rgb(202, 251, 182); */
 }
 
@@ -97,10 +97,18 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 .paginateComp button {
- margin-left: 1rem;
+ margin: 1rem;
  padding: 0.5rem;
+ width: 50px;
+ height: 50px;
+ border-radius: 100%;
+ text-align: center;
+ background-color: #c4b5fd;
+ color: #fff;
+ font-weight: bold;
 }
 .filterComp {
   display: flex;
@@ -113,33 +121,42 @@ footer {
   background-color: rgb(200, 230, 132);
   display: flex;
   flex-direction: column;
-  width: 100px;
-  height: 100px;
+  justify-content: space-between;
+  width: 150px;
+  height: 150px;
+  margin: 1.2rem;
+  border-radius: 5px;
+  padding-bottom: 5px;
+  border: 1px solid  rgb(76, 78, 79);
+
 }
-.character, .episode {
+.character {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(201, 219, 225);
+  /* background-color: rgb(237, 245, 248); */
   margin: 1.2rem;
-  width: 200px;
-  height: 220px;
+  width: 160px;
+  height: 170px;
   border-radius: 5px;
-  padding-bottom: 5px;
-  border: 1px solid  rgb(76, 78, 79);
+  font-size: 14px;
+  overflow: hidden;
 }
 .avatar{
-  width: 100%;
-  height: 80%;
-  margin-bottom: 6px;
-  overflow: 1;
+  display: inline-block;
+  height: 140px;
+  width: 140px;
+  text-align:center;
+  border-radius: 100%;
+  overflow: hidden;
 }
 .avatar img {
   width: 100%;
-  height: 100%;
-
+  height : 100%;
 }
+
+
 @media screen and (max-width: 375px){
   
 }
@@ -159,20 +176,88 @@ footer {
   display: inline;
 }
 .fullCharacter {
-  background-color: rgb(160, 153, 153);
+  margin: 0;
+	font-family: sans-serif;
+	font-weight: 100;
   display: flex;
+  padding: 1rem 4rem;
+ 
 }
 table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 50%;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  margin-left: 1rem;
+  
 }
 
 table td, table th {
   border: 1px solid #ddd;
   padding: 8px;
+  padding: 5px;
+	background-color: rgba(255,255,255,0.2);
+	color: #aaa;
 }
+
 
 table tr:nth-child(even){background-color: #f2f2f2;}
 
 table tr:hover {background-color: #ddd;}
+
+.episodeBox{
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+input {
+  width: 80%;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+input:hover {
+  border: 1px solid #8b5cf6;
+}
+input:focus {
+  border: 1px solid #8b5cf6;
+}
+button {
+  border: #8cffa0;
+  padding: 5px;
+}
+.searchBox input {
+  width: 300px;
+  top: 100px;
+  left: 20px;
+}
+button[type=submit] {
+  background-color: #fff;
+  width: 60%;
+  padding: 0.5rem 0.3rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-family: serif;
+  font-weight: bold;
+  margin-top: 20px;
+  border: 1px solid #8b5cf6;
+
+}
+form {
+  margin-top: 40px;
+}
+.episodeTable, .locationTable {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+.episodeTable h2, .locationTable h2 {
+  color: #aaa;
+  margin-bottom: 2rem;
+}

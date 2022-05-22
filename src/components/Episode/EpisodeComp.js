@@ -78,15 +78,9 @@ const EpisodeComp = () => {
              .catch((err) => console.log(err)) 
         }   
     }
-    const advanceSearch = () => {
-        console.log("advanse search")
-    }
     return ( 
-        <div className="mainBox">
-            <div className="sideBar">
+        <div className="episodeBox">
                 <SearchBar SearchHandler={SearchHandler}/>
-                {/* <FilterDataComp  filterHandler={filterHandler}/> */}
-            </div>
             <div className="mainComp">
                 {listedEpisode 
                     ? listedEpisode.map((data) => 

@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Character from "./Charatcter";
-import FilterDataComp from "./FilterComp";
 import SearchBar from "./SearchComp";
 import { getAllCharacters} from "../services/getAllCharactersServices";
 
@@ -39,8 +38,7 @@ const MainComp = () => {
             setError(true)
         }
     }
-    const selectPageHandler = (pageNum) => {
-        
+    const selectPageHandler = (pageNum) => {     
     }
     const filterHandler = (e) => {
         if (e.target.value === ""){
@@ -69,7 +67,6 @@ const MainComp = () => {
             axios.get(`https://rickandmortyapi.com/api/character/?name=${location.search}`)
              .then((res) => { 
                  console.log(res.data.results)
-                 e.target.value=""
                  setListedData(res.data.results
                    .filter( d => d.name.toLowerCase().includes(e.target.value.toLowerCase())))}
                    )
@@ -87,28 +84,27 @@ const MainComp = () => {
         <div className="mainBox">
             <div className="sideBar">  
                 <form onSubmit={advanceSearch}>
-                    <input type="text" placeholder="Search for name..."
+                    <input type="text" placeholder="by name..."
                         name="name"
                         // onChange={changeHandler}
                         />
-                    <input type="text" placeholder="Search for statuse..."
+                    <input type="text" placeholder="by statuse..."
                         name="status"
                         // onChange={changeHandler}
                         /> 
-                    <input type="text" placeholder="Search for gender..."
+                    <input type="text" placeholder="by gender..."
                         name="gender"
                         // onChange={changeHandler}
                         />     
                     {/* <input type="radio" name="gender" onChange={changeHandler}/> */}
    
-                    <button type="submit">Advance Search</button>       
+                    <button type="submit">Advanced Search</button>       
                 </form>             
               
             </div>
             <div className="mainComp">
                 <div className="searchDiv">
-                    <SearchBar SearchHandler={SearchHandler}/>
-                    <FilterDataComp  filterHandler={filterHandler}/>
+                    {/* <SearchBar SearchHandler={SearchHandler}/> */}
                 </div>
                 <div className="mainComp">
                     {listedData 
@@ -137,7 +133,7 @@ const MainComp = () => {
                         </Link>
                         <Link to= {pageNum}>
                             <button onClick={() => selectPageHandler()}>
-                                {query.page}
+                                {query.page ? `${query.page}` : "1"}
                             </button>
                         </Link>
                         <Link 
@@ -148,6 +144,14 @@ const MainComp = () => {
                                 next
                             </button>
                         </Link>
+                        {/* <Link 
+                        to={pageInfo.pages ? `/character/?page=${pageInfo.pages}` : ""}>
+                            <button 
+                                disabled={!pageInfo.next} 
+                                onClick={() => selectPageHandler()}>
+                                {pageInfo.pages}
+                            </button>
+                        </Link> */}
                     </div>)
                     : (<p>Page Loading</p>)
                 } 

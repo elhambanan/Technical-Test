@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getOneCharacter } from "../services/getOneCharacterServices";
 
 const FullDataComp = () => {
@@ -26,6 +26,8 @@ const FullDataComp = () => {
     if(data) {
         dataDetail = (
             <div className="fullCharacter">
+                <div><img src={data.image}/></div>            
+
                 <table>
                     <tr>
                         <th>name</th>
@@ -53,7 +55,7 @@ const FullDataComp = () => {
                         <td>
                             {data.origin.name}
                             <br></br>
-                            {data.origin.url}
+                            <Link to={`/location/${data.origin.url.slice(41)}`}>{data.origin.url}</Link>
                         </td>
                     </tr>
                     <tr>
@@ -61,12 +63,18 @@ const FullDataComp = () => {
                         <td>
                             {data.location.name}
                             <br></br>
-                            {data.location.url}
+                            <Link to={`/location/${data.location.url.slice(41)}`}>{data.location.url}</Link>
                         </td>
                     </tr>
                     <tr>
                         <th>url</th>
-                        <td>{data.url}</td>
+                        <td>
+                           <Link to={`/character/${data.id}`}>
+                           <button >
+                                {data.url}
+                            </button>
+                           </Link>
+                         </td>
                     </tr>
                     <tr>
                         <th>created</th>
@@ -75,14 +83,13 @@ const FullDataComp = () => {
                     <tr>
                         <th>episode</th>
                         { data.episode.map((m) => (
-                        <Link to={m.slice(32)}>
+                        <Link to={`/episode/${m.slice(40)}`}>
                             <td>{m}</td>
                             <br/>
                         </Link>
                         ))}
                     </tr>         
                 </table>
-                <div><img src={data.image}/></div>            
            </div>
         )
     }

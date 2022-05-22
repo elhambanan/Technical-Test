@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getOneEpisode } from "../../services/getOneEpisodeServices";
 
 const EpisodeFullData = () => {
     const params = useParams();
     const episodeId = params.id;
     const [data, setData] = useState(null);
-    const navigate = useNavigate();
 
     useEffect(() =>{
         if(episodeId) {
@@ -20,8 +19,9 @@ const EpisodeFullData = () => {
 
     if(data) {
         dataDetail = (
-            <div>
-               <table>
+            <div className="episodeTable">
+                <h2>episode {data.id} full data table</h2>
+               <table >
                     <tr>
                         <th>name</th>
                         <td>{data.name}</td>
@@ -49,16 +49,13 @@ const EpisodeFullData = () => {
                     <tr>
                         <th>episode</th>
                         { data.characters.map((m) => (
-                        <Link to={m.slice(32)}>
+                        <Link to={`/character/${m.slice(42)}`}>
                             <td>{m}</td>
                             <br/>
                         </Link>
                         ))}
                     </tr>      
-                    <tr>
-                        <th>episode</th>
-                        
-                    </tr>     
+                     
                </table>
             </div>
         )

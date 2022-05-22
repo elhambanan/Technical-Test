@@ -1,6 +1,6 @@
 const SearchBar = ({SearchHandler}) => {
     return ( 
-        <div>
+        <div className="searchBox">
             <input 
                 type="text" 
                 placeholder="Search by name..."

@@ -68,11 +68,8 @@ const LocationComp = () => {
         }   
     }
     return ( 
-        <div className="mainBox">
-            <div className="sideBar">
+        <div className="episodeBox">
                 <SearchBar SearchHandler={SearchHandler}/>
-                {/* <FilterDataComp  filterHandler={filterHandler}/> */}
-            </div>
             <div className="mainComp">
                 {listedLocation 
                     ? listedLocation.map((data) => 

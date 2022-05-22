@@ -18,37 +18,40 @@ const LocationFullData = ({id,name, type, dimension,residents, onClick}) => {
 
     if(data) {
         dataDetail = (
-            <table>
-                    <tr>
-                        <th>name</th>
-                        <td>{data.name}</td>
-                    </tr>
-                    <tr>
-                        <th>type</th>
-                        <td>{data.type}</td>
-                    </tr>
-                    <tr>
-                        <th>dimension</th>
-                        <td>{data.dimension}</td>
-                    </tr>
-                    <tr>
-                        <th>url</th>
-                        <td>{data.url}</td>
-                    </tr>
-                    <tr>
-                        <th>created</th>
-                        <td>{data.created}</td>
-                    </tr>
-                    <tr>
-                        <th>residents</th>
-                        { data.residents.map((m) => (
-                        <Link to={m.slice(32)}>
-                            <td>{m}</td>
-                            <br/>
-                        </Link>
-                        ))}
-                    </tr>         
-               </table>
+            <div className="locationTable">
+                <h2>location {data.id} full data table</h2>
+                <table >
+                        <tr>
+                            <th>name</th>
+                            <td>{data.name}</td>
+                        </tr>
+                        <tr>
+                            <th>type</th>
+                            <td>{data.type}</td>
+                        </tr>
+                        <tr>
+                            <th>dimension</th>
+                            <td>{data.dimension}</td>
+                        </tr>
+                        <tr>
+                            <th>url</th>
+                            <td>{data.url}</td>
+                        </tr>
+                        <tr>
+                            <th>created</th>
+                            <td>{data.created}</td>
+                        </tr>
+                        <tr>
+                            <th>residents</th>
+                            { data.residents.map((m) => (
+                            <Link to={`/character/${m.slice(42)}`}>
+                                <td>{m}</td>
+                                <br/>
+                            </Link>
+                            ))}
+                        </tr>         
+                </table>
+            </div>
         )
     }
     return dataDetail;
