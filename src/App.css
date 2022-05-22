@@ -2,6 +2,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  font-family: cursive;  
 }
 *{
   box-sizing: border-box;
@@ -118,17 +119,20 @@ footer {
 }
 
 .episode {
-  background-color: rgb(200, 230, 132);
+  background-color: #f6f6f6 ;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   width: 150px;
-  height: 150px;
+  height: 130px;
   margin: 1.2rem;
   border-radius: 5px;
-  padding-bottom: 5px;
-  border: 1px solid  rgb(76, 78, 79);
-
+  padding: 8px;
+  background-color: #ddd6fe;
+  color: #777;
+  border: 1px solid  #ccc;
+  box-shadow: 5px 4px 3px 3px #f5f3ff;
 }
 .character {
   display: flex;
@@ -165,12 +169,15 @@ footer {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(213, 246, 193);
   margin: 1.2rem;
   width: 220px;
   height: 100px;
   border-radius: 5px;
-  padding: 5px;
+  padding: 8px;
+  background-color: #ddd6fe;
+  color: #777;
+  border: 1px solid  #ccc;
+  box-shadow: 5px 4px 3px 3px #f5f3ff;
 }
 .location h5{
   display: inline;
@@ -181,7 +188,13 @@ footer {
 	font-weight: 100;
   display: flex;
   padding: 1rem 4rem;
- 
+}
+@media screen and (max-width: 768px){
+  .fullCharacter {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 table {
   font-family: Arial, Helvetica, sans-serif;
@@ -258,6 +271,10 @@ form {
   padding: 2rem 0;
 }
 .episodeTable h2, .locationTable h2 {
-  color: #aaa;
+  color: #555;
   margin-bottom: 2rem;
+}
+.error {
+  display: flex;
+  flex-direction: column;
 }

@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 
 const items = [
-  {name: "HomePage", to:"/"},
-  {name: "character", to:"/character"},
-  {name: "episode", to:"/episode"},
-  {name: "location", to:"/location"},
+  // {name: "HomePage", to:"/"},
+  {name: "Character", to:"/character"},
+  {name: "Episode", to:"/episode"},
+  {name: "Location", to:"/location"},
 
 ]
 

@@ -16,10 +16,8 @@ const MainComp = () => {
     let location = useLocation();
     const pageNum = location.search;
 
-    const query = queryString.parse(location.search)
-    console.log(location, query)
+    const query = queryString.parse(location.search);
 
-    
     useEffect(()=> {
         getCharacters();
     },[])
@@ -34,7 +32,6 @@ const MainComp = () => {
             setPageInfo(response.data.info)
 
         } catch (error) {
-            console.log(error)
             setError(true)
         }
     }
@@ -56,7 +53,6 @@ const MainComp = () => {
         }   
     }
     const SearchHandler = (e) => {
-        console.log(e.target.value);
         if (e.target.value === ""){
             axios.get(`https://rickandmortyapi.com/api/character/${location.search}`)
              .then((res) => { setListedData(res.data.results)
@@ -66,36 +62,43 @@ const MainComp = () => {
         }else {
             axios.get(`https://rickandmortyapi.com/api/character/?name=${location.search}`)
              .then((res) => { 
-                 console.log(res.data.results)
                  setListedData(res.data.results
                    .filter( d => d.name.toLowerCase().includes(e.target.value.toLowerCase())))}
                    )
                  .catch((err) => console.log(err)) 
         }   
     }
-    const advanceSearch = () => {
-        console.log("advanse search")
+    const advanceSearch = (e) => {
+        console.log(e.target.value)
     }
-    const changeHandler = (e) =>{
-        console.log(e.target.name, e.target.value)
-    }
+    // const changeHandler = (e) =>{
+    //     console.log(e.target.name, e.target.value)
+    // }
 
     return ( 
         <div className="mainBox">
             <div className="sideBar">  
                 <form onSubmit={advanceSearch}>
-                    <input type="text" placeholder="by name..."
+                    <label for="name">Input Name</label>
+                    <input type="text" placeholder="name..."
                         name="name"
-                        // onChange={changeHandler}
-                        />
-                    <input type="text" placeholder="by statuse..."
-                        name="status"
-                        // onChange={changeHandler}
-                        /> 
-                    <input type="text" placeholder="by gender..."
-                        name="gender"
-                        // onChange={changeHandler}
-                        />     
+                        />                  
+                     <label for="status">Status:</label>        
+                     <select name="status">
+                        <option value="" selected>All</option>
+                        <option value="Alive">Alive</option>
+                        <option value="Dead">Dead</option>
+                        <option value="unknown">unknown</option>
+                    </select>
+                    <br/>
+                    <label for="gender">Gender:</label>        
+                     <select name="gender">
+                        <option value="" selected>All</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="unknown">unknown</option>
+
+                    </select>
                     {/* <input type="radio" name="gender" onChange={changeHandler}/> */}
    
                     <button type="submit">Advanced Search</button>       
@@ -116,7 +119,13 @@ const MainComp = () => {
                             />
                         </Link>
                         )
-                        : <p>Data Loading...</p>
+                        : (
+                        <div className="error">
+                            <h2>DATA NOT EXISTING</h2>
+                            <br/>
+                            <Link to={`/character/`}><p>back to home page</p></Link>
+                        </div>
+                        )
                     }
                 </div>
                

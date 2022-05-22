@@ -1,4 +1,4 @@
-const Character = ({image,name, id, status,onClick}) => {
+const Character = ({image,name,onClick}) => {
     return ( 
         <div className="character" onClick={onClick}>
             <div className="avatar" >
@@ -6,6 +6,7 @@ const Character = ({image,name, id, status,onClick}) => {
              {/* <a class="img" href={image} style={{backgroundImage: `${image}`}}></a> */}
             </div>
             <p>{name}...</p>
+
         </div>
      );
 } 

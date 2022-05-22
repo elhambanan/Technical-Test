@@ -7,23 +7,19 @@ axios.defaults.baseURL = "https://rickandmortyapi.com/api";
 
 axios.interceptors.request.use(
     (request) => {
-        console.log(request);
         // Edit request ...
         return request;
     }, 
     (error)=>{
-        console.log(error);
         return Promise.reject();
     })
 
 axios.interceptors.response.use(
     (response) => {
-        console.log(response);
         // Edit response ...
         return response;
     }, 
     (error)=>{
-        console.log(error);
         return Promise.reject();
     })
 
