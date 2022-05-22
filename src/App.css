@@ -61,7 +61,7 @@ footer {
   grid-template-areas: 
                        "nav  main"
                        "nav  foot";
-  grid-template-rows: 1fr 70px;
+  grid-template-rows: 1fr 80px;
   grid-template-columns: 200px 1fr;
 }
 .header {
@@ -73,17 +73,30 @@ footer {
   grid-area: nav;
   background-color: #ede9fe;
 }
-
 .mainComp{
   grid-area: main;
-  /* background-color: #ffff64; */
 }
-
 .pagination {
   grid-area: foot;
-  /* background-color: c4b5fd#; */
-  
 }
+.sideBar {
+  padding-left: 15px;
+}
+.formControl {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  color: #444;
+}
+.formControl select {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  color: #444;
+}
+
 .mainComp {
   grid-area: main;
   display: flex;
@@ -103,13 +116,14 @@ footer {
 .paginateComp button {
  margin: 1rem;
  padding: 0.5rem;
- width: 50px;
- height: 50px;
+ width: 40px;
+ height: 40px;
  border-radius: 100%;
  text-align: center;
- background-color: #c4b5fd;
+ background-color: #8b5cf6;
  color: #fff;
  font-weight: bold;
+ font-size: 12px;
 }
 .filterComp {
   display: flex;
@@ -118,22 +132,7 @@ footer {
   padding: 1rem;
 }
 
-.episode {
-  background-color: #f6f6f6 ;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 150px;
-  height: 130px;
-  margin: 1.2rem;
-  border-radius: 5px;
-  padding: 8px;
-  background-color: #ddd6fe;
-  color: #777;
-  border: 1px solid  #ccc;
-  box-shadow: 5px 4px 3px 3px #f5f3ff;
-}
+
 .character {
   display: flex;
   flex-direction: column;
@@ -164,16 +163,16 @@ footer {
 @media screen and (max-width: 375px){
   
 }
-.location {
+.location , .episode{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin: 1.2rem;
   width: 220px;
-  height: 100px;
+  height: 140px;
   border-radius: 5px;
-  padding: 8px;
+  padding: 10px;
   background-color: #ddd6fe;
   color: #777;
   border: 1px solid  #ccc;
@@ -226,7 +225,7 @@ table tr:hover {background-color: #ddd;}
   padding-top: 10px;
 }
 input {
-  width: 80%;
+  width: 90%;
   padding: 0.5rem;
   margin: 1rem 0;
   border-radius: 5px;
@@ -250,15 +249,15 @@ button {
 }
 button[type=submit] {
   background-color: #fff;
-  width: 60%;
-  padding: 0.5rem 0.3rem;
+  width: 80%;
+  padding: 0.5rem;
   border-radius: 5px;
   text-decoration: none;
-  font-family: serif;
+  font-family: cursive;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 40px;
   border: 1px solid #8b5cf6;
-
+  color: #999;
 }
 form {
   margin-top: 40px;

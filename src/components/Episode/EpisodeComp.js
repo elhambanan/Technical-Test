@@ -103,19 +103,21 @@ const EpisodeComp = () => {
 
                             <button 
                                 disabled={!pageInfo.prev} 
+                                style={{backgroundColor: pageInfo.prev ? '#8b5cf6':'#c4b5fd'}}
                                 onClick={() => selectPageHandler()}>
                             prev
                             </button>
                         </Link>
                         <Link to= {pageNum}>
                             <button onClick={() => selectPageHandler()}>
-                                {query.page}
+                                {query.page || "1"}
                             </button>
                         </Link>
                         <Link 
                         to={pageInfo.next ? `/${pageInfo.next.slice(32)}` : "character/?page=42"}>
                             <button 
                                 disabled={!pageInfo.next} 
+                                style={{backgroundColor: pageInfo.next ? '#8b5cf6':'#c4b5fd'}}
                                 onClick={() => selectPageHandler()}>
                                 next
                             </button>
