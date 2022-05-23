@@ -1,3 +1,7 @@
+# live demo of rick&morty api : 
+https://app.netlify.com/sites/eli-expense-tracker-demo/settings/deploys#environment
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
