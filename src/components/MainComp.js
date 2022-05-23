@@ -28,9 +28,9 @@ const MainComp = () => {
             const response = await getAllCharacters(pageNum);
             setListedData(response.data.results)
             setPageInfo(response.data.info)
-
         } catch (error) {
             setError(true)
+            setListedData("")
         }
     }
     const advanceSearch = (e) => {

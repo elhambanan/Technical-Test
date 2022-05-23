@@ -9,7 +9,7 @@ import LocationFullData from "./components/Location/LocationFullData";
 
 
 const routes = [
-    {path: "/", element:<HomePage/>},
+    {path: "/", element:<MainComp/>},
 
     {path: "/character", element:<MainComp/>},
     {path: "/character/:id", element:<FullDataPage />}, 
